@@ -22,6 +22,9 @@
           Send
         </RealDigitalButton>
       </RealDigitalForm>
+      <section class="is-flex is-justify-content-center mt-3">
+        {{httpsResponse}}
+      </section>
     </MainLayout>
   </div>
 </template>
@@ -43,7 +46,8 @@ export default {
       name: '',
       phone: '',
       subject: '',
-      isFormSubmitted: false
+      isFormSubmitted: false,
+      httpsResponse: ''
     }
   },
   computed: {
@@ -72,9 +76,11 @@ export default {
         const { name, phone, subject } = Object.fromEntries(new FormData(event.target))
         // "method" can be "get", "post", "put", etc
         // action is the api url to be hit
-        await axios[method](action, {
+        const resp = await axios[method](action, {
           name, phone, subject
         })
+        this.httpsResponse = resp.data.json
+        setTimeout(() => {this.httpsResponse = ''}, 6000)
         // reset all values
         this.name = ''
         this.phone = ''
