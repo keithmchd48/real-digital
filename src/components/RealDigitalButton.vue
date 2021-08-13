@@ -1,7 +1,7 @@
 <template>
   <div class="field is-grouped">
     <div class="control">
-      <button type="submit" @submit.prevent="emitSubmitEvent" class="button is-link">
+      <button type="submit" class="button is-link">
         <slot></slot>
       </button>
     </div>
@@ -12,9 +12,7 @@
 export default {
   name: "RealDigitalButton",
   methods: {
-    emitSubmitEvent(event) {
-      this.$emit('submit', event)
-    }
+
   }
 }
 </script>

@@ -6,9 +6,10 @@
     <div class="control">
       <input class="input" type="text"
              v-bind="$attrs"
-             :class="[{'is-danger': isFormSubmitted && !isInputRegexValid}]"
+             :class="[{'is-danger': !isInputRegexValid}]"
              :value="value"
              @input="onInputEvent">
+      <p v-show="!isInputRegexValid" class="help is-danger">Invalid Name input</p>
     </div>
   </div>
 </template>
@@ -25,15 +26,12 @@ export default {
     value: {
       type: String,
       value: "",
-    },
-    isFormSubmitted: {
-      type: Boolean,
-      default: false
     }
   },
   computed: {
     // if input value matches regex, return true. Else false
     isInputRegexValid() {
+      if (!this.validation) return true
       const regex = new RegExp(this.validation, 'g')
       return regex.test(this.value)
     }
